@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import Products from "./Components/products"
+import { useState } from "react"
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App (){
+
+   let [tax,setTax] = useState(0);
+   
+
+   return(
+
+
+      
+      <>
+      <div className="container" >
+         <Products tax={tax}/>
+         <div className="d-flex justify-content-end mt-3">
+             <input type="text" placeholder="tax" onInput={(e) => setTax(e.target.value)}/>
+         </div>
+       
+      
+      </div>
+      
+       
+  
+      </>
+   )
+
+
+    
+   
+  
 }
 
-export default App;
+export default App

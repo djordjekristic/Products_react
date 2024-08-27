@@ -1,35 +1,22 @@
-import Products from "./Components/products"
-import { useState } from "react"
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { useState } from "react";
+import Products from "./Components/Products"
+
+
 
 function App (){
-
-   let [tax,setTax] = useState(0);
-   
-
-   return(
-
-
-      
-      <>
-      <div className="container" >
-         <Products tax={tax}/>
-         <div className="d-flex justify-content-end mt-3">
-             <input type="text" placeholder="tax" onInput={(e) => setTax(e.target.value)}/>
-         </div>
-       
-      
-      </div>
-      
-       
-  
-      </>
-   )
-
-
     
-   
-  
+    let [tax,setTax] = useState(0);
+    return(
+        <>
+        <div className="container m-5">
+          <div className="form-control">
+        <input type="nummber" placeholder="tax value" onInput={(e) => setTax(e.target.value)}/>
+          </div>
+        <Products tax={tax}/>
+          
+        </div>
+        
+        </>
+    )
 }
-
 export default App

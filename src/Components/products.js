@@ -1,103 +1,99 @@
+
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-
 
 function Products (props){
 
     
-    let [products, setProducts] = useState( 
-        {
-            'iphon 14': 1000,
-            'iphon 15': 1200,
-            'samsung 23': 1500
-        }
+        
     
-    )
-    function search (e){
-        const searchTerm = e.currentTarget.value.toLowerCase();
-        const productsNames = Object.keys(products);
 
-        for(let product in productsNames){
-            let productName = productsNames[product].toLowerCase()
+    let [phones,setPhones] = useState(
+        {"iphon 14": 1200,
+        "samsung 12": 1100,
+        "huawei 40": 1300}) 
+    let [newPhoneName,setNewPhoneName] = useState("");
+    let [newPhonePrice,setNewPhonePrice] = useState("");
+    let [infoMessage,setInfoMessage] = useState()
 
-            if(productName === searchTerm){
-                setInfomessage('product is hier')
-                break;
-            } else{
-                setInfomessage('product is not hier')
-            }
+
+    function addPhone (){
+        if(newPhoneName === ""){
+            return
         }
-        
-        
-      }
-
-    let [newProductName, setNewProductName] = useState("")
-    let [newProductPrice, setNewProductPrice] = useState("")
-    let [infomessage,setInfomessage] = useState();
-    function createProduct (e){
-         if (newProductName === ""){
+        if(newPhonePrice === ""){
             return
-         }
-         if (newProductPrice === ""){
-            return
-         }
-         let newProduct = {[newProductName]:parseInt(newProductPrice)}
+        }
 
-        setProducts(currentProducts => ({
-            ...currentProducts,
-            ...newProduct
+        let newPhone = {[newPhoneName]:parseInt(newPhonePrice)}
+
+        setPhones(currentPhones =>({
+            ...currentPhones,
+            ...newPhone
         }))
+       
     }
 
+    function search (e){
+
+        let searchTerm = e.currentTarget.value.toLowerCase(); 
+       
+        let keys = Object.keys(phones);
         
-     
+        for(let key in keys){
+            let keyName = keys[key].toLocaleLowerCase();
+
+            if(searchTerm === keyName){
+              setInfoMessage('product is find')
+              break;
+              
+           
+            }else{
+                setInfoMessage('finding...')
+                
+            }
+        }
+    }
+
+
     return(
         <>
-        
-        <div className="d-flex justify-content-center">
-        {Object.entries(products).map(([phone,price])=>(
-        <div>
-             <h3 className="mt-3">{phone}</h3>
-            <p className="m-3">${price}</p>
-            <p className="m-3">Price with tax: ${CalculateTax(price,props.tax)}</p>
-        </div>    
-            
-           
-        ))}
-        
-        </div>
-        
-        
-        
-        <div>
-            <div className="form-control">
-               <input type="text" onInput={(e) => setNewProductName(e.target.value)} placeholder="new product name" />
-               
-            </div>
-            <div className="form-control">
-                <input type="number" onInput={(e) => setNewProductPrice(e.target.value)} placeholder="new product price" />
-            </div>
-            
-            
-            <button className="btn btn-primary mb-3" onClick={createProduct}>Add new product</button>
+         
+         <div className="d-flex justify-content-center">
+         {Object.entries(phones).map( ([phone,price]) => (
            <div>
-             <button className="btn btn-danger"  onClick={ () => setProducts({})} >Delete</button>
-            </div> 
+            <h3 className="m-3">{phone}</h3>
+            <p className="m-5 mt-1">${taxCalculate(price,props.tax)}</p>
+           </div>
+           
+         )
+        )}
+         </div>
+         <div className="container">
+        <h3>Add new product</h3>
+        <div >
+            <div className="form-control">
+               <input onInput={e => setNewPhoneName(e.target.value)} placeholder="phone name" type="text"/> 
+            </div>
+            <div className="form-control">
+               <input onInput={e => setNewPhonePrice(e.target.value)} placeholder="phone price" type="number"/>
+            </div>
+              <button className="btn btn-primary" onClick={addPhone}>Create product</button>
 
-            
-
+        </div>
         </div>
         <div className="form-control">
-                <input type="text" onInput={search} placeholder="search" />
-                <p className="text-success">{infomessage}</p>
+            <p>{infoMessage}</p>
+           <input onInput={search} type="text" placeholder="search"/>
         </div>
-
+        <button className="btn btn-danger" onClick={(e) => setPhones('')}>Delete</button>
+        
         </>
     )
-}
-function CalculateTax (price,tax){
-  return ((price*tax)/100)+price
+    function taxCalculate (price,tax){
+        return ((price*tax)/100)+price
+        
+    }
 }
 
 export default Products

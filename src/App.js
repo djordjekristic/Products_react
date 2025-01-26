@@ -2,21 +2,37 @@ import { useState } from "react";
 import Products from "./Components/Products"
 
 
+function clickOnButton (){
+  console.log("work");
+}
+
+
+
+
 
 function App (){
+
+  let [name,setName] = useState("djole");
+  let [tax,setTax] = useState(20);
+
+  function changeTax(e){
+    setTax(e.target.value);
+  }
+
+  function changeName(e){
+    setName(e.target.value)
+  }
+  return(
+    <>
+    <Products tax={tax}/>
+    <Products tax="30"/>
+    <Products tax="40"/>
+    <br/>
+    <button onClick={clickOnButton}>{name}</button>
+    <input type="text" onInput={changeName}/>
+    <input type="number" onInput={changeTax} placeholder="tax"/>
     
-    let [tax,setTax] = useState(0);
-    return(
-        <>
-        <div className="container m-5">
-          <div className="form-control">
-        <input type="nummber" placeholder="tax value" onInput={(e) => setTax(e.target.value)}/>
-          </div>
-        <Products tax={tax}/>
-          
-        </div>
-        
-        </>
-    )
+    </>
+  )
 }
 export default App

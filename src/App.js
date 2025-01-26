@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Products from "./Components/Products"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 
 function clickOnButton (){
@@ -18,21 +19,17 @@ function App (){
   function changeTax(e){
     setTax(e.target.value);
   }
-
-  function changeName(e){
-    setName(e.target.value)
-  }
   return(
-    <>
+    <div className="container">
+    <input type="number" className="m-2" onInput={changeTax} placeholder="tax"/>
     <Products tax={tax}/>
     
     <br/>
-    <hr/>
-    <button onClick={clickOnButton}>{name}</button>
-    <input type="text" onInput={changeName}/>
-    <input type="number" onInput={changeTax} placeholder="tax"/>
     
-    </>
+    
+    
+    
+    </div>
   )
 }
 export default App

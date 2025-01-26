@@ -25,9 +25,9 @@ function App (){
   return(
     <>
     <Products tax={tax}/>
-    <Products tax="30"/>
-    <Products tax="40"/>
+    
     <br/>
+    <hr/>
     <button onClick={clickOnButton}>{name}</button>
     <input type="text" onInput={changeName}/>
     <input type="number" onInput={changeTax} placeholder="tax"/>
